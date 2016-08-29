@@ -11,6 +11,8 @@ import java.util.*;
 
 public class NameSurferEntry implements NameSurferConstants {
 
+	private int [] rank = new int[NDECADES];
+	private String Name;
 /* Constructor: NameSurferEntry(line) */
 /**
  * Creates a new NameSurferEntry from a data line as it appears
@@ -20,6 +22,14 @@ public class NameSurferEntry implements NameSurferConstants {
  */
 	public NameSurferEntry(String line) {
 		// You fill this in //
+		int nameEnd = line.indexOf(" ");
+		 Name = line.substring(0, nameEnd);
+		String numbers = line.substring(nameEnd + 1);
+		StringTokenizer tokenizer = new StringTokenizer(numbers);
+		for(int i = 0; tokenizer.hasMoreTokens(); i++) {
+			int popularRank = Integer.parseInt(tokenizer.nextToken());
+			rank[i] = popularRank;
+		}
 	}
 
 /* Method: getName() */
@@ -28,7 +38,7 @@ public class NameSurferEntry implements NameSurferConstants {
  */
 	public String getName() {
 		// You need to turn this stub into a real implementation //
-		return null;
+		return Name;
 	}
 
 /* Method: getRank(decade) */
