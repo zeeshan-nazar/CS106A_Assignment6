@@ -6,7 +6,13 @@
  */
 
 import acm.program.*;
+import acm.util.ErrorException;
+
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 import javax.swing.*;
 
 public class NameSurfer extends ConsoleProgram implements NameSurferConstants {
@@ -16,14 +22,35 @@ public class NameSurfer extends ConsoleProgram implements NameSurferConstants {
 	private JTextField text;
 	private JButton graph;
 	private JButton clear;
+	String line;
+	private NameSurferEntry obj = new NameSurferEntry(line);
 /* Method: init() */
 /**
  * This method has the responsibility for reading in the data base
  * and initializing the interactors at the bottom of the window.
  */
+	private void readfile(){
+		try{
+			BufferedReader rd = new BufferedReader(new FileReader("names-data.txt"));
+			while(true) {
+				 String line = rd.readLine();
+				if(line == null) 
+					{
+						break;
+					}
+				
+			}
+			
+			
+			rd.close();
+		} catch(IOException ex) {
+				throw new ErrorException(ex);
+			}
+		System.out.println(line);
+	}
 	public void init() {
 	    // You fill this in, along with any helper methods //
-		
+		readfile();
 		name = new JLabel("Name");
 		add(name,NORTH);
 		text = new JTextField(30);
