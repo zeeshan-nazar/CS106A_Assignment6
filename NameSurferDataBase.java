@@ -1,3 +1,11 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import acm.util.ErrorException;
+
 /*
  * File: NameSurferDataBase.java
  * -----------------------------
@@ -12,6 +20,7 @@
 public class NameSurferDataBase implements NameSurferConstants {
 	
 /* Constructor: NameSurferDataBase(filename) */
+	private HashMap<String,NameSurferEntry> names = new HashMap<String,NameSurferEntry>();
 /**
  * Creates a new NameSurferDataBase and initializes it using the
  * data in the specified file.  The constructor throws an error
@@ -20,7 +29,21 @@ public class NameSurferDataBase implements NameSurferConstants {
  */
 	public NameSurferDataBase(String filename) {
 		// You fill this in //
-	}
+		try{
+			BufferedReader rd = new BufferedReader(new FileReader(filename));
+			while(true) {
+				String line = rd.readLine();
+				if(line == null) break;
+				NameSurferEntry nameEntry = new NameSurferEntry(line);
+				names.put(nameEntry.getName(), nameEntry);
+				//System.out.println(line);
+			}
+			
+			rd.close();
+		} catch(IOException ex) {
+				throw new ErrorException(ex);
+			}
+		}
 	
 /* Method: findEntry(name) */
 /**
@@ -30,7 +53,16 @@ public class NameSurferDataBase implements NameSurferConstants {
  */
 	public NameSurferEntry findEntry(String name) {
 		// You need to turn this stub into a real implementation //
-		return null;
+		char character = name.charAt(0);
+		if(Character.isLowerCase(character) == true) {
+			character = Character.toUpperCase(character);
+		}
+		if(names.containsKey(name)){
+			return names.get(name);
+		}
+		else{
+				return null;
+		}
 	}
 }
 
