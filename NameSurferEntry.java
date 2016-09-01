@@ -7,12 +7,16 @@
  */
 
 import acm.util.*;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 public class NameSurferEntry implements NameSurferConstants {
 
 	private int [] rank = new int[NDECADES];
-	private String Name;
+	private String name;
 /* Constructor: NameSurferEntry(line) */
 /**
  * Creates a new NameSurferEntry from a data line as it appears
@@ -23,7 +27,7 @@ public class NameSurferEntry implements NameSurferConstants {
 	public NameSurferEntry(String line) {
 		// You fill this in //
 		int nameEnd = line.indexOf(" ");
-		 Name = line.substring(0, nameEnd);
+		 name = line.substring(0, nameEnd);
 		String numbers = line.substring(nameEnd + 1);
 		StringTokenizer tokenizer = new StringTokenizer(numbers);
 		for(int i = 0; tokenizer.hasMoreTokens(); i++) {
@@ -38,7 +42,7 @@ public class NameSurferEntry implements NameSurferConstants {
  */
 	public String getName() {
 		// You need to turn this stub into a real implementation //
-		return Name;
+		return name;
 	}
 
 /* Method: getRank(decade) */
@@ -51,7 +55,8 @@ public class NameSurferEntry implements NameSurferConstants {
  */
 	public int getRank(int decade) {
 		// You need to turn this stub into a real implementation //
-		return 0;
+		
+		return rank[decade];
 	}
 
 /* Method: toString() */
@@ -61,7 +66,13 @@ public class NameSurferEntry implements NameSurferConstants {
  */
 	public String toString() {
 		// You need to turn this stub into a real implementation //
-		return "";
+		
+		String result = name;
+		for(int value = 0; value < NDECADES; value++)
+		{
+			result = result+rank[value] + "	";
+		}
+		return result;
 	}
 }
 
